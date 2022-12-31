@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Sporty Shoes</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	
+</head>
+<body>
+
+	<div class="container my-2">
+	<h1>Sporty Shoes</h1>
+
+		<a th:href = "@{?category=men}" class="btn btn-primary btn-sm mb-3"> Men shoes </a>
+		<a th:href = "@{?category=women}" class="btn btn-primary btn-sm mb-3"> Women shoes </a>
+		<a th:href = "@{?category=kids}" class="btn btn-primary btn-sm mb-3"> Kids shoes </a>
+		<a th:href = "@{/}" class="btn btn-primary btn-sm mb-3"> All shoes </a>
+		<div th:switch="${user.role}">
+			<a th:href = "@{/admin}" th:case="'ADMIN'" class="btn btn-primary btn-sm mb-3"> Manage </a>
+		</div>
+		<a th:href = "@{/logout}" class="btn btn-warning btn-sm mb-3"> Log out </a>
+
+		<table border="1" class = "table table-striped table-responsive-md">
+			<tbody>
+			<tr th:each="shoe : ${shoes}">
+				<td th:text="${shoe.name}"></td>
+				<td th:text="${shoe.category}"></td>
+				<td>
+					<img th:src="@{${shoe.imagePath}}"/>
+				</td>
+				<td th:text="${shoe.price}"></td>
+				<td>
+					<form action="#" th:action="@{/{id}/buy(id=${shoe.id})}" method="POST">
+						<button type="submit" class="btn btn-primary btn-lg">Buy Now</button>
+					</form>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
